@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/05/2009 08:38:27" ReportInfo.Modified="05/03/2012 14:36:32" ReportInfo.CreatorVersion="1.6.42.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="VOA" ConnectionString="rijcmlq5dPJehO5x/2E8sacvvLXnir20a59wSa+vyYSi3eYTnrKrTttk3oyLyi4N8PEzoLK0aOnpRnyXhjKF8DjulcKPWAqq8tngCzx/Z0C/n+OCQx1lOsuKzPNigjRsP6XQyoaTZrlejAmt6Zdi+5ViSR4Jpt/cHqKdon9rxekQAj1ln1RfeZV0Hbl8a0zh1OPwm5Qh4lQ4X55RTT7b/rFcKNaUA==">
+      <TableDataSource Name="Table" Alias="PickupsByOperator" DataType="System.Int32" Enabled="true" SelectCommand="SELECT  V1.First_Name+' '+V1.Last_Name AS Name, CONVERT(CHAR(10),V.Date_Entered,101) AS Date, Count(*) AS PickupQty&#13;&#10;FROM &quot;VOA_Donations&quot; V, &quot;VOA_Operators&quot; V1&#13;&#10;WHERE V.Operator_Id=V1.Id&#13;&#10;  AND V.PickUpLocation&lt;&gt;8&#13;&#10;  AND V.Date_Entered BETWEEN @start_date AND dateadd(d,1,@end_date)&#13;&#10;GROUP BY V1.First_Name+' '+V1.Last_Name, CONVERT(CHAR(10),V.Date_Entered,101)&#13;&#10;ORDER BY V1.First_Name+' '+V1.Last_Name, CONVERT(CHAR(10),V.Date_Entered,101)&#13;&#10;">
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="Date" DataType="System.String"/>
+        <Column Name="PickupQty" DataType="System.Int32"/>
+        <CommandParameter Name="@start_date" DataType="15" Expression="[StartDate]" DefaultValue="02-17-2009"/>
+        <CommandParameter Name="@end_date" DataType="15" Expression="[EndDate]" DefaultValue="02-19-2009"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="StartDate" DataType="System.DateTime"/>
+    <Parameter Name="EndDate" DataType="System.DateTime"/>
+    <Total Name="OperatorTotal" Expression="[PickupsByOperator.PickupQty]" Evaluator="Data1" PrintOn="GroupFooter1" ResetOnReprint="true"/>
+  </Dictionary>
+  <ReportPage Name="Page1">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="56.7">
+      <TextObject Name="Text8" Width="718.2" Height="28.35" Text="Pickup Slips by Operator" HorzAlign="Center" Font="Arial, 16pt, style=Bold"/>
+      <TextObject Name="Text9" Left="245.7" Top="28.35" Width="94.5" Height="18.9" Text="[StartDate]" Format="Date" Format.Format="MM/dd/yy" HorzAlign="Right" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text10" Left="378" Top="28.35" Width="94.5" Height="18.9" Text="[EndDate]" Format="Date" Format.Format="MM/dd/yy" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text11" Left="340.2" Top="28.35" Width="37.8" Height="18.9" Text="to" HorzAlign="Center"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="60.7" Width="718.2" Height="18.9"/>
+    <GroupHeaderBand Name="GroupHeader1" Top="83.6" Width="718.2" Height="18.9" Fill.Color="Gainsboro" Condition="[PickupsByOperator.Name]">
+      <TextObject Name="Text1" Width="255.15" Height="18.9" Text="[PickupsByOperator.Name]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text3" Left="302.4" Width="94.5" Height="18.9" Text="Date Entered" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text5" Left="510.3" Width="94.5" Height="18.9" Text="Pickups" HorzAlign="Right" Font="Arial, 10pt, style=Bold"/>
+      <DataBand Name="Data1" Top="106.5" Width="718.2" Height="24.57" DataSource="Table">
+        <TextObject Name="Text2" Left="311.85" Top="3" Width="94.5" Height="18.9" Text="[PickupsByOperator.Date]" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text4" Left="538.65" Top="3" Width="56.7" Height="18.9" Text="[PickupsByOperator.PickupQty]" HorzAlign="Right" Font="Arial, 10pt, style=Bold"/>
+        <Sort>
+          <Sort Expression="[PickupsByOperator.Date]"/>
+        </Sort>
+      </DataBand>
+      <GroupFooterBand Name="GroupFooter1" Top="135.07" Width="718.2" Height="56.7">
+        <TextObject Name="Text6" Left="538.65" Top="9.45" Width="56.7" Height="18.9" Text="[OperatorTotal]" HorzAlign="Right" Font="Arial, 10pt, style=Bold"/>
+        <LineObject Name="Line1" Left="595.35" Width="-56.7"/>
+        <TextObject Name="Text7" Left="444.15" Top="9.45" Width="94.5" Height="18.9" Text="Total:" HorzAlign="Right" Font="Arial, 10pt, style=Bold"/>
+      </GroupFooterBand>
+    </GroupHeaderBand>
+    <PageFooterBand Name="PageFooter1" Top="195.77" Width="718.2" Height="18.9"/>
+  </ReportPage>
+</Report>

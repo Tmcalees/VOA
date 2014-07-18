@@ -1,0 +1,38 @@
+﻿@model IEnumerable<VOA.Models.Donor>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-group">   
+    <form action="~/Pickup/SearchDonor">
+        <fieldset>
+            <legend>Schedule Donation Pickup</legend>
+            <nav class="breadcrumbs" style="margin-bottom:25px">
+                <ul>
+                    <li><a href="~/Home"><i class="icon-home"></i></a></li>
+                    <li class="active"><a href="">Look Up Donor</a></li>
+                </ul>
+            </nav>
+            <label>Last name:</label>
+            <div class="input-control text" data-role="input-control">
+                <input name="LastName" type="text" placeholder="Enter last name..." autofocus>
+            </div>
+            <label>First name:</label>
+            <div class="input-control text" data-role="input-control">
+                <input name="FirstName" type="text" placeholder="Enter first name...">
+            </div>
+            <label>Zip code:</label>
+            <div class="input-control text" data-role="input-control">
+                <input name="ZipCode" type="text" placeholder="Enter zip code...">
+            </div>
+
+            <input type="submit" value="Search"/>
+            <input type="reset" value="Reset"/>
+
+            <div style="margin-top: 20px">
+            </div>
+        </fieldset>
+    </form>
+</div>

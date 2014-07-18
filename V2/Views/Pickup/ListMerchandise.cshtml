@@ -1,0 +1,36 @@
+﻿@model IEnumerable<VOA.Models.Merchandise>
+
+@{
+    ViewBag.Title = "ListMerchandise";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<legend>Schedule Donation Pickup</legend>
+<nav class="breadcrumbs" style="margin-bottom:25px">
+    <ul>
+        <li><a href="~/Home"><i class="icon-home"></i></a></li>
+        <li><a href="~/Pickup">Look Up Donor</a></li>
+        <li><a href="~/Pickup/SearchDonor">Select Donor</a></li>
+        <li><a href="~/Pickup/SelectDate">Select Date</a></li>
+        <li class="active"><a href="">Select Merchandise</a></li>
+    </ul>
+</nav>
+
+<form action="~/Pickup/SelectPickupLocation">
+    @foreach (var item in Model)
+{
+    <div class="tile bd-grayLighter ol-cyan bg-grayLighter border" style="padding:5px;" ondblclick="">
+        <span style="font-family: arial,Calibri; font-size: 10pt">
+            @item.Name
+        </span>
+        <div class="brand">
+            <div class="input-control text" data-role="input-control" style="width: 30px; float: right;">
+                <input type="text" placeholder="0" maxlength="2" style="" />
+            </div>
+        </div>
+    </div>
+}
+
+    <input type="submit" value="Continue"/>
+
+</form>

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/05/2009 08:38:27" ReportInfo.Modified="12/05/2011 11:39:23" ReportInfo.CreatorVersion="1.6.42.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="VOA" ConnectionString="rijcmlq5dPJehO5x/2E8sacvvLXnir20a59wSa+vyYSi3eYTnrKrTttk3oyLyi4N8PEzoLK0aOnpRnyXhjKF8DjulcKPWAqq8tngCzx/Z0C/n+OCQx1lOsuKzPNigjRsP6XQyoaTZrlejAmt6Zdi+5ViSR4Jpt/cHqKdon9rxekQAj1ln1RfeZV0Hbl8a0zh1OPwm5QTdvhRwC/y3E5gx+Y6c/n7Q==">
+      <TableDataSource Name="Table" Alias="OtherMerchandise" DataType="System.Int32" Enabled="true" SelectCommand="SELECT DD.OtherMerch, DD.Qty, O.First_Name, O.Last_Name, D.Date_Entered&#13;&#10;FROM VOA_Donation_Details as DD, VOA_Donations as D, VOA_Operators as O&#13;&#10;WHERE DD.Donation_Id = D.Id and D.Operator_Id = O.Id and DD.Merchandise_Id = 0&#13;&#10;  AND D.Date_Entered BETWEEN @start_date AND dateadd(d,1,@end_date)&#13;&#10;ORDER BY DD.OtherMerch">
+        <Column Name="OtherMerch" Alias="Other Merchandise" DataType="System.String"/>
+        <Column Name="Qty" Alias="Quantity" DataType="System.Int32"/>
+        <Column Name="First_Name" Alias="First Name" DataType="System.String"/>
+        <Column Name="Last_Name" Alias="Last Name" DataType="System.String"/>
+        <Column Name="Date_Entered" Alias="Date Entered" DataType="System.DateTime" Format="Date"/>
+        <CommandParameter Name="@start_date" DataType="15" Expression="[StartDate]" DefaultValue="01-01-2009"/>
+        <CommandParameter Name="@end_date" DataType="15" Expression="[EndDate]" DefaultValue="02-28-2009"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="StartDate" DataType="System.DateTime"/>
+    <Parameter Name="EndDate" DataType="System.DateTime"/>
+  </Dictionary>
+  <ReportPage Name="Page1">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="56.7">
+      <TextObject Name="Text8" Width="718.2" Height="28.35" Text="Other Merchandise" HorzAlign="Center" Font="Arial, 16pt, style=Bold"/>
+      <TextObject Name="Text9" Left="245.7" Top="28.35" Width="94.5" Height="18.9" Text="[StartDate]" Format="Date" Format.Format="MM/dd/yy" HorzAlign="Right" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text10" Left="378" Top="28.35" Width="94.5" Height="18.9" Text="[EndDate]" Format="Date" Format.Format="MM/dd/yy" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text11" Left="340.2" Top="28.35" Width="37.8" Height="18.9" Text="to" HorzAlign="Center"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="60.7" Width="718.2" Height="28.35">
+      <TextObject Name="Text2" Left="9.45" Width="274.05" Height="18.9" Text="Other Merchandise" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text4" Left="292.95" Width="94.5" Height="18.9" Text="Quantity" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text6" Left="396.9" Width="170.1" Height="18.9" Text="Entered By" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text14" Left="604.8" Width="94.5" Height="18.9" Text="Date Entered" Font="Arial, 10pt, style=Bold"/>
+      <LineObject Name="Line1" Left="9.45" Top="18.9" Width="689.85"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="93.05" Width="718.2" Height="18.9" DataSource="Table">
+      <TextObject Name="Text1" Left="9.45" Width="274.05" Height="18.9" Text="[OtherMerchandise.Other Merchandise]"/>
+      <TextObject Name="Text3" Left="292.95" Width="94.5" Height="18.9" Text="[OtherMerchandise.Quantity]"/>
+      <TextObject Name="Text5" Left="396.9" Width="170.1" Height="18.9" Text="[OtherMerchandise.First Name] [OtherMerchandise.Last Name]"/>
+      <TextObject Name="Text13" Left="604.8" Width="94.5" Height="18.9" Text="[OtherMerchandise.Date Entered]" Format="Date" Format.Format="d"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="115.95" Width="718.2" Height="18.9"/>
+  </ReportPage>
+</Report>

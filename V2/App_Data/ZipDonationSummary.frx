@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/27/2009 14:16:24" ReportInfo.Modified="08/29/2011 11:21:22" ReportInfo.CreatorVersion="1.6.42.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlq5dPJehO5x/2E8sacvvLXnir20a59wSa+vyYSi3eYTnrKrTttk3oyLyi4N8PEzoLK0aOnpRnyXhjKF8DjulcKPWAqq8tngCzx/Z0C/n+OCQx1lOsuKzPNigjRsP6XQyoaTZrlejAmt6Zdi+5ViSR4JvxFh1q5aakS/YtpxG/uMCeQj5/My2V/pajTZxU1FWEgRSDm9Qhx76xMvVrYYpqZSA==">
+      <TableDataSource Name="Table" Alias="ZipDonationSummary" DataType="System.Int32" Enabled="true" SelectCommand="select M.Name, SUM(DD.Qty) as Qty&#13;&#10;from VOA_Donations D, VOA_Donation_Details DD, VOA_Merchandise M&#13;&#10;where D.Id = DD.Donation_Id&#13;&#10;  and DD.Merchandise_Id = M.Id&#13;&#10;  and D.ZipCode = @zipcode&#13;&#10;  and D.Date_Scheduled between @start_date and @end_date&#13;&#10;group by M.Name">
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="QTY" DataType="System.Int32"/>
+        <CommandParameter Name="@start_date" DataType="15" Expression="[StartDate]" DefaultValue="01-01-2005"/>
+        <CommandParameter Name="@zipcode" DataType="22" Expression="[ZipCodes.ZipCode]" DefaultValue="14564"/>
+        <CommandParameter Name="@end_date" DataType="15" Expression="[EndDate]" DefaultValue="12/31/2010"/>
+      </TableDataSource>
+      <TableDataSource Name="Table1" Alias="ZipCodes" DataType="System.Int32" Enabled="true" SelectCommand="select distinct D.ZipCode&#13;&#10;from VOA_Donations D&#13;&#10;where D.Date_Scheduled between @start_date and @end_date">
+        <Column Name="ZipCode" DataType="System.String"/>
+        <CommandParameter Name="@start_date" DataType="4" Expression="[StartDate]" DefaultValue="1/1/2009"/>
+        <CommandParameter Name="@end_date" DataType="4" Expression="[EndDate]" DefaultValue="1/31/2009"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="StartDate" DataType="System.DateTime"/>
+    <Parameter Name="EndDate" DataType="System.DateTime"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9" FirstPageSource="15" OtherPagesSource="15">
+    <PageHeaderBand Name="PageHeader1" Width="1047.06" Height="42.25">
+      <TextObject Name="Text1" Left="680.4" Top="13.9" Width="330.75" Height="28.35" Text="[StartDate] to [EndDate]" Format="Date" Format.Format="d" HorzAlign="Right" Font="Arial, 16pt, style=Bold"/>
+      <TextObject Name="Text3" Left="18.9" Top="13.45" Width="434.7" Height="28.35" Text="[ZipCodes.ZipCode] Donation Summary" Font="Arial, 16pt, style=Bold"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="46.25" Width="1047.06" DataSource="Table1" KeepTogether="true" KeepDetail="true">
+      <DataBand Name="Data2" Top="50.25" Width="1047.06" Height="633.15">
+        <MSChartObject Name="MSChart1" Left="9.45" Top="9.45" Width="1030.05" Height="623.7" DataSource="Table" AutoSeriesColumn="" ChartData="PENoYXJ0IEJvcmRlcmxpbmVDb2xvcj0iRGFya0dyYXkiIEJvcmRlcmxpbmVXaWR0aD0iMiIgQm9yZGVybGluZURhc2hTdHlsZT0iU29saWQiPg0KICA8U2VyaWVzPg0KICAgIDxTZXJpZXMgTmFtZT0iW1ppcENvZGVdIiBMZWdlbmQ9IkRlZmF1bHQiIFhWYWx1ZVR5cGU9IlN0cmluZyIgWVZhbHVlVHlwZT0iRG91YmxlIiBDaGFydEFyZWE9IkRlZmF1bHQiPg0KICAgICAgPFBvaW50cz4NCiAgICAgICAgPERhdGFQb2ludCBZVmFsdWVzPSIxIiBBeGlzTGFiZWw9IkEiIC8+DQogICAgICAgIDxEYXRhUG9pbnQgWVZhbHVlcz0iMiIgQXhpc0xhYmVsPSJCIiAvPg0KICAgICAgPC9Qb2ludHM+DQogICAgPC9TZXJpZXM+DQogIDwvU2VyaWVzPg0KICA8TGVnZW5kcz4NCiAgICA8TGVnZW5kIE5hbWU9IkRlZmF1bHQiIEVuYWJsZWQ9IkZhbHNlIj4NCiAgICA8L0xlZ2VuZD4NCiAgPC9MZWdlbmRzPg0KICA8VGl0bGVzPg0KICAgIDxUaXRsZSBWaXNpYmxlPSJGYWxzZSIgTmFtZT0iVGl0bGUxIj4NCiAgICA8L1RpdGxlPg0KICA8L1RpdGxlcz4NCiAgPENoYXJ0QXJlYXM+DQogICAgPENoYXJ0QXJlYSBOYW1lPSJEZWZhdWx0Ij4NCiAgICAgIDxBeGlzWT4NCiAgICAgICAgPE1ham9yR3JpZCBMaW5lQ29sb3I9IjY0LCA2NCwgNjQsIDY0IiAvPg0KICAgICAgPC9BeGlzWT4NCiAgICAgIDxBeGlzWCBJc0xhYmVsQXV0b0ZpdD0iRmFsc2UiIEludGVydmFsPSIxIj4NCiAgICAgICAgPE1ham9yR3JpZCBMaW5lQ29sb3I9IjY0LCA2NCwgNjQsIDY0IiAvPg0KICAgICAgICA8TGFiZWxTdHlsZSBBbmdsZT0iOTAiIC8+DQogICAgICA8L0F4aXNYPg0KICAgICAgPEF4aXNYMj4NCiAgICAgICAgPE1ham9yR3JpZCBMaW5lQ29sb3I9IjY0LCA2NCwgNjQsIDY0IiAvPg0KICAgICAgPC9BeGlzWDI+DQogICAgICA8QXhpc1kyPg0KICAgICAgICA8TWFqb3JHcmlkIExpbmVDb2xvcj0iNjQsIDY0LCA2NCwgNjQiIC8+DQogICAgICA8L0F4aXNZMj4NCiAgICA8L0NoYXJ0QXJlYT4NCiAgPC9DaGFydEFyZWFzPg0KICA8Qm9yZGVyU2tpbiBTa2luU3R5bGU9IkVtYm9zcyIgLz4NCjwvQ2hhcnQ+">
+          <MSChartSeries Name="Series1" XValue="[ZipDonationSummary.Name]" YValue1="[ZipDonationSummary.QTY]"/>
+        </MSChartObject>
+      </DataBand>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="687.4" Width="1047.06" Height="18.9"/>
+  </ReportPage>
+</Report>

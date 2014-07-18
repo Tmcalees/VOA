@@ -1,0 +1,34 @@
+﻿@model IEnumerable<DateTime>
+
+@{
+    ViewBag.Title = "ListDates";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<legend>Schedule Donation Pickup</legend>
+<nav class="breadcrumbs" style="margin-bottom:25px">
+    <ul>
+        <li><a href="~/Home"><i class="icon-home"></i></a></li>
+        <li><a href="~/Pickup">Look Up Donor</a></li>
+        <li><a href="~/Pickup/SearchDonor">Select Donor</a></li>
+        <li class="active"><a href="">Select Date</a></li>
+    </ul>
+</nav>
+
+@foreach (var item in Model)
+{
+    <a class="tile" href="~/Pickup/SelectMerchandise">
+        <span style="margin: 2px; font-family: Arial,Calibri; color: gray; font-size: 12px; display: block; ">
+            @item.DayOfWeek
+        </span>
+        <span style="font-family: Arial,Calibri; font-size: 18px; font-weight:bold; text-align: center; vertical-align: middle; display: block">
+            @item.ToString("MMMM")
+        </span>
+        <span style="font-family: Arial,Calibri; font-size: 36px; font-weight:bold; text-align: center; vertical-align: middle; display: block">
+        @item.Day
+        </span>
+        <span style="margin: 2px; font-family: Arial,Calibri; color: gray; font-size: 14px; text-align: right; vertical-align: bottom; display: block">
+        @item.Year
+        </span>
+    </a>
+}

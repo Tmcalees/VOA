@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/28/2009 08:48:11" ReportInfo.Modified="05/03/2012 14:37:24" ReportInfo.CreatorVersion="1.6.42.0">
+  <Styles Name="Standard">
+    <Style Name="Title" Font="Arial, 12pt, style=Bold"/>
+    <Style Name="Header" Font="Arial, 10pt, style=Bold"/>
+    <Style Name="Group" Font="Arial, 10pt, style=Bold"/>
+    <Style Name="Data"/>
+    <Style Name="Footer"/>
+    <Style Name="EvenRows" Fill.Color="WhiteSmoke"/>
+  </Styles>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlq5dPJehO5x/2E8sacvvLXnir20a59wSa+vyYSi3eYTnrKrTttk3oyLyi4N8PEzoLK0aOnpRnyXhjKF8DjulcKPWAqq8tngCzx/Z0C/n+OCQx1lOsuKzPNigjRsP6XQyoaTZrlejAmt6Zdi+5ViSR4JvxFh1q5aakS/YtpxG/uMCeQj5/My2V/pajTZxU1FWEgtPybvq9zg6VocFbvVSB1bA==">
+      <TableDataSource Name="Table" Alias="PickupsByHour" DataType="System.Int32" Enabled="true" SelectCommand="SELECT CONVERT(CHAR(10),V.Date_Entered,101) AS Date, DATEPART(hh, V.Date_Entered) AS Hour, Count(*) AS PickupQty&#13;&#10;FROM &quot;VOA_Donations&quot; V&#13;&#10;WHERE V.Date_Entered  BETWEEN @start_date AND dateadd(d,1,@end_date)&#13;&#10;   AND V.PickUpLocation&lt;&gt;8&#13;&#10;GROUP BY CONVERT(CHAR(10),V.Date_Entered,101), DATEPART(hh,V.Date_Entered)&#13;&#10;ORDER BY CONVERT(CHAR(10),V.Date_Entered,101), DATEPART(hh, V.Date_Entered)&#13;&#10;">
+        <Column Name="Hour" DataType="System.Int32"/>
+        <Column Name="PickupQty" DataType="System.Int32"/>
+        <Column Name="Date" DataType="System.String"/>
+        <CommandParameter Name="@start_date" DataType="15" Expression="[StartDate]" DefaultValue="02-17-2009"/>
+        <CommandParameter Name="@end_date" DataType="15" Expression="[EndDate]" DefaultValue="02-19-2009"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="StartDate" DataType="System.DateTime"/>
+    <Parameter Name="EndDate" DataType="System.DateTime"/>
+    <Total Name="DailyTotal" Expression="[PickupsByHour.PickupQty]" Evaluator="Data1" PrintOn="GroupFooter1" ResetOnReprint="true"/>
+  </Dictionary>
+  <ReportPage Name="Page1">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="56.7" Guides="18.9">
+      <TextObject Name="Text1" Top="3" Width="718.2" Height="37.8" Text="Pickup Slips by Hour" HorzAlign="Center" Font="Arial, 16pt, style=Bold"/>
+      <TextObject Name="Text3" Left="250.15" Top="30.35" Width="94.5" Height="18.9" Text="[StartDate]" Format="Date" Format.Format="MM/dd/yy" HorzAlign="Right" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text8" Left="373" Top="30.35" Width="94.5" Height="18.9" Text="[EndDate]" Format="Date" Format.Format="MM/dd/yy" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text10" Left="344.65" Top="30.35" Width="28.35" Height="18.9" Text="to" HorzAlign="Center" Font="Arial, 11pt"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="60.7" Width="718.2" Height="28.35"/>
+    <GroupHeaderBand Name="GroupHeader1" Top="93.05" Width="718.2" Height="18.9" Fill.Color="Gainsboro" Condition="[PickupsByHour.Date]">
+      <TextObject Name="Text2" Width="170.1" Height="18.9" Text="[PickupsByHour.Date]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text5" Left="330.75" Width="132.3" Height="18.9" Text="Hour of Day" HorzAlign="Right" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text7" Left="585.9" Width="122.85" Height="18.9" Text="Pickups" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <DataBand Name="Data1" Top="115.95" Width="718.2" Height="18.9" EvenStyle="EvenRows" DataSource="Table">
+        <TextObject Name="Text4" Left="321.3" Width="113.4" Height="18.9" Text="[PickupsByHour.Hour]" HorzAlign="Right" Style="Data"/>
+        <TextObject Name="Text6" Left="557.55" Width="75.6" Height="18.9" Text="[PickupsByHour.PickupQty]" HorzAlign="Right" Style="Data"/>
+        <Sort>
+          <Sort Expression="[PickupsByHour.Date]"/>
+          <Sort Expression="[PickupsByHour.Hour]"/>
+        </Sort>
+      </DataBand>
+      <GroupFooterBand Name="GroupFooter1" Top="138.85" Width="718.2" Height="47.25">
+        <TextObject Name="Text11" Left="557.55" Top="6.45" Width="75.6" Height="18.9" Text="[DailyTotal]" HorzAlign="Right" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text12" Left="368.55" Top="6.45" Width="189" Height="18.9" Text="Total # Pickups:" HorzAlign="Right" Font="Arial, 10pt, style=Bold"/>
+        <LineObject Name="Line1" Left="633.15" Top="0.45" Width="-47.25"/>
+      </GroupFooterBand>
+    </GroupHeaderBand>
+    <PageFooterBand Name="PageFooter1" Top="190.1" Width="718.2" Height="18.9">
+      <TextObject Name="Text9" Width="718.2" Height="18.9" Dock="Fill" Text="Page [Page]" HorzAlign="Right" Style="Footer"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/27/2009 14:16:24" ReportInfo.Modified="08/29/2011 11:21:41" ReportInfo.CreatorVersion="1.6.42.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlq5dPJehO5x/2E8sacvvLXnir20a59wSa+vyYSi3eYTnrKrTttk3oyLyi4N8PEzoLK0aOnpRnyXhjKF8DjulcKPWAqq8tngCzx/Z0C/n+OCQx1lOsuKzPNigjRsP6XQyoaTZrlejAmt6Zdi+5ViSR4JvxFh1q5aakS/YtpxG/uMCeQj5/My2V/pajTZxU1FWEgZeJSKvMVrUNfdnJLy9SIOg==">
+      <TableDataSource Name="Table" Alias="MerchandiseTrend" DataType="System.Int32" Enabled="true" SelectCommand="select CONVERT(NCHAR(4), DATEPART(yyyy, D.Date_Scheduled))+'-'+Right('0' + Convert(VarChar(2), Month(D.Date_Scheduled)), 2) As YearMonth, M.Name, SUM(DD.Qty) as QTY&#13;&#10;from VOA_Merchandise M, VOA_Donation_Details DD, VOA_Donations D&#13;&#10;where D.Id = DD.Donation_Id and DD.Merchandise_Id = M.Id&#13;&#10;  and M.Id = @merchandise_id&#13;&#10;  and D.Date_Scheduled BETWEEN @start_date AND @end_date&#13;&#10;group by CONVERT(NCHAR(4), DATEPART(yyyy, D.Date_Scheduled))+'-'+Right('0' + Convert(VarChar(2), Month(D.Date_Scheduled)), 2),&#13;&#10;         M.Name&#13;&#10;order by YearMonth&#13;&#10;">
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="YearMonth" DataType="System.String"/>
+        <Column Name="QTY" DataType="System.Int32"/>
+        <CommandParameter Name="@start_date" DataType="15" Expression="[StartDate]" DefaultValue="01-01-2008"/>
+        <CommandParameter Name="@merchandise_id" DataType="22" Expression="[SelectMerchandise.Merchandise_Id]" DefaultValue="13"/>
+        <CommandParameter Name="@end_date" DataType="15" Expression="[EndDate]" DefaultValue="12/31/2008"/>
+      </TableDataSource>
+      <TableDataSource Name="Table1" Alias="SelectMerchandise" DataType="System.Int32" Enabled="true" SelectCommand="select distinct DD.Merchandise_Id, M.Name&#13;&#10;from VOA_Donation_Details DD, VOA_Donations D, VOA_Merchandise M&#13;&#10;where DD.Donation_Id = D.Id&#13;&#10;  and DD.Merchandise_Id = M.Id&#13;&#10;  and D.Date_Scheduled between @start_date and @end_date&#13;&#10;order by M.Name ASC">
+        <Column Name="Merchandise_Id" DataType="System.Int32"/>
+        <Column Name="Name" DataType="System.String"/>
+        <CommandParameter Name="@start_date" DataType="15" Expression="[StartDate]" DefaultValue="1/1/2008"/>
+        <CommandParameter Name="@end_date" DataType="15" Expression="[EndDate]" DefaultValue="12/31/2008"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="StartDate" DataType="System.DateTime"/>
+    <Parameter Name="EndDate" DataType="System.DateTime"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9" FirstPageSource="15" OtherPagesSource="15">
+    <PageHeaderBand Name="PageHeader1" Width="1047.06" Height="47.25">
+      <TextObject Name="Text1" Left="670.95" Top="13.9" Width="359.1" Height="28.35" Text="[StartDate] to [EndDate]" Format="Date" Format.Format="d" HorzAlign="Right" Font="Arial, 16pt, style=Bold"/>
+      <TextObject Name="Text6" Left="28.35" Top="13.9" Width="292.95" Height="28.35" Text="[SelectMerchandise.Name] Donation Trend" AutoWidth="true" Font="Arial, 16pt, style=Bold"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="51.25" Width="1047.06" DataSource="Table1">
+      <DataBand Name="Data2" Top="55.25" Width="1047.06" Height="642.6">
+        <MSChartObject Name="MSChart1" Left="18.9" Top="18.9" Width="1030.05" Height="623.7" DataSource="Table" AutoSeriesColumn="[MerchandiseTrend.Name]" ChartData="PENoYXJ0IEJvcmRlcmxpbmVDb2xvcj0iRGFya0dyYXkiIEJvcmRlcmxpbmVXaWR0aD0iMiIgQm9yZGVybGluZURhc2hTdHlsZT0iU29saWQiPg0KICA8U2VyaWVzPg0KICAgIDxTZXJpZXMgTmFtZT0iTWVyY2hhbmRpc2UiIExlZ2VuZD0iRGVmYXVsdCIgWFZhbHVlVHlwZT0iU3RyaW5nIiBZVmFsdWVUeXBlPSJEb3VibGUiIENoYXJ0VHlwZT0iTGluZSIgQ2hhcnRBcmVhPSJEZWZhdWx0IiBCb3JkZXJXaWR0aD0iMyI+DQogICAgICA8UG9pbnRzPg0KICAgICAgICA8RGF0YVBvaW50IFlWYWx1ZXM9IjEiIEF4aXNMYWJlbD0iQSIgLz4NCiAgICAgICAgPERhdGFQb2ludCBZVmFsdWVzPSIyIiBBeGlzTGFiZWw9IkIiIC8+DQogICAgICA8L1BvaW50cz4NCiAgICA8L1Nlcmllcz4NCiAgPC9TZXJpZXM+DQogIDxMZWdlbmRzPg0KICAgIDxMZWdlbmQgTmFtZT0iRGVmYXVsdCI+DQogICAgPC9MZWdlbmQ+DQogIDwvTGVnZW5kcz4NCiAgPFRpdGxlcz4NCiAgICA8VGl0bGUgVmlzaWJsZT0iRmFsc2UiIE5hbWU9IlRpdGxlMSI+DQogICAgPC9UaXRsZT4NCiAgPC9UaXRsZXM+DQogIDxDaGFydEFyZWFzPg0KICAgIDxDaGFydEFyZWEgTmFtZT0iRGVmYXVsdCI+DQogICAgICA8QXhpc1k+DQogICAgICAgIDxNYWpvckdyaWQgTGluZUNvbG9yPSI2NCwgNjQsIDY0LCA2NCIgLz4NCiAgICAgIDwvQXhpc1k+DQogICAgICA8QXhpc1ggSXNMYWJlbEF1dG9GaXQ9IkZhbHNlIiBJbnRlcnZhbD0iMiI+DQogICAgICAgIDxNYWpvckdyaWQgTGluZUNvbG9yPSI2NCwgNjQsIDY0LCA2NCIgLz4NCiAgICAgICAgPExhYmVsU3R5bGUgQW5nbGU9IjkwIiAvPg0KICAgICAgPC9BeGlzWD4NCiAgICAgIDxBeGlzWDI+DQogICAgICAgIDxNYWpvckdyaWQgTGluZUNvbG9yPSI2NCwgNjQsIDY0LCA2NCIgLz4NCiAgICAgIDwvQXhpc1gyPg0KICAgICAgPEF4aXNZMj4NCiAgICAgICAgPE1ham9yR3JpZCBMaW5lQ29sb3I9IjY0LCA2NCwgNjQsIDY0IiAvPg0KICAgICAgPC9BeGlzWTI+DQogICAgPC9DaGFydEFyZWE+DQogIDwvQ2hhcnRBcmVhcz4NCiAgPEJvcmRlclNraW4gU2tpblN0eWxlPSJFbWJvc3MiIC8+DQo8L0NoYXJ0Pg==">
+          <MSChartSeries Name="Series2" XValue="[MerchandiseTrend.YearMonth]" YValue1="[MerchandiseTrend.QTY]"/>
+        </MSChartObject>
+      </DataBand>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="701.85" Width="1047.06" Height="18.9"/>
+  </ReportPage>
+</Report>

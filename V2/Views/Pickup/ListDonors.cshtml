@@ -1,0 +1,110 @@
+﻿@model PagedList.IPagedList<VOA.Models.Donor>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "ListDonors";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<legend>Schedule Donation Pickup</legend>
+<nav class="breadcrumbs" style="margin-bottom:25px">
+    <ul>
+        <li><a href="~/Home"><i class="icon-home"></i></a></li>
+        <li><a href="~/Pickup">Look Up Donor</a></li>
+        <li class="active"><a href="">Select Donor</a></li>
+    </ul>
+</nav>
+<p>
+    @Html.ActionLink("Add New Donor", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().HouseNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Street1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Street2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().State)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().ZipCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Telephone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Notes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().AltPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Email)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <a class="button" href="~/Pickup/SelectDate?donorId=@Html.DisplayFor(modelItem => item.ID)">
+                @Html.DisplayFor(modelItem => item.LastName)
+            </a>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HouseNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Street1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Street2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.State)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ZipCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telephone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Notes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AltPhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+    </tr>
+}
+</table>
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Search",
+                new { page, lastName = ViewBag.SearchLastName, firstName = ViewBag.SearchFirstName, zipCode = ViewBag.SearchZipCode}))
+

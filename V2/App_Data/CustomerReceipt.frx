@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/27/2009 19:46:33" ReportInfo.Modified="06/06/2011 14:14:32" ReportInfo.CreatorVersion="1.6.42.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="CustomerReceipt" ConnectionString="rijcmlq5dPJehO5x/2E8sacvvLXnir20a59wSa+vyYSi3eYTnrKrTttk3oyLyi4N8PEzoLK0aOnpRnyXhjKF8DjulcKPWAqq8tngCzx/Z0C/n+OCQx1lOsuKzPNigjRsP6XQyoaTZrlejAmt6Zdi+5ViSR4JvxFh1q5aakS/YtpxG/uMCeQj5/My2V/pajTZxU1FWEgieCMaovYorFJ3E/R2kiQwg==">
+      <TableDataSource Name="Table" Alias="CustomerReceiptDonations" DataType="System.Int32" Enabled="true" SelectCommand="    SELECT V.Id, V.First_Name+' '+V.Last_Name AS Name, V.House_Number+' '+V.Street1 AS Address, V.City+', '+V.State+' '+V.ZipCode AS CSZ, V.Telephone, V.Date_Scheduled, V.Route&#13;&#10;    FROM &quot;VOA_Donations&quot; V&#13;&#10;    WHERE V.Id=@donation_id&#13;&#10;">
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="Address" DataType="System.String"/>
+        <Column Name="CSZ" DataType="System.String"/>
+        <Column Name="Telephone" DataType="System.String"/>
+        <Column Name="Date_Scheduled" DataType="System.DateTime"/>
+        <Column Name="Route" DataType="System.Int32"/>
+        <Column Name="Id" DataType="System.Int32"/>
+        <CommandParameter Name="@donation_id" DataType="22" Expression="[DonationId]" DefaultValue="0"/>
+      </TableDataSource>
+      <TableDataSource Name="Table1" Alias="CustomerReceiptDonationsDetails" DataType="System.Int32" Enabled="true" SelectCommand="SELECT ItemName = &#13;&#10;   CASE V1.Merchandise_Id&#13;&#10;      WHEN 0 THEN V1.OtherMerch&#13;&#10;      ELSE V2.Name&#13;&#10;   END, V1.Qty&#13;&#10;FROM VOA_Donation_Details V1, VOA_Merchandise V2&#13;&#10;WHERE V1.Merchandise_Id = V2.Id AND V1.Donation_Id = @donation_id&#13;&#10;ORDER BY ItemName Asc">
+        <Column Name="Qty" DataType="System.Int32"/>
+        <Column Name="ItemName" DataType="System.String"/>
+        <CommandParameter Name="@donation_id" DataType="8" Expression="[CustomerReceiptDonations.Id]" DefaultValue="0"/>
+      </TableDataSource>
+      <TableDataSource Name="Table2" Alias="CustomerReceiptMerchandiseNotes" DataType="System.Int32" Enabled="true" SelectCommand="SELECT V.MerchandiseNotes&#13;&#10;FROM &quot;VOA_Donations&quot; V&#13;&#10;WHERE V.Id = @donation_id&#13;&#10;">
+        <Column Name="MerchandiseNotes" DataType="System.String"/>
+        <CommandParameter Name="@donation_id" DataType="8" Expression="[CustomerReceiptDonations.Id]" DefaultValue="0"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="DonationId" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1">
+    <DataBand Name="Data1" Width="718.2" Height="274.05" StartNewPage="true" DataSource="Table">
+      <ShapeObject Name="Shape2" Left="18.9" Top="241.7" Width="680.4" Height="28.35"/>
+      <ShapeObject Name="Shape1" Left="18.9" Top="141.75" Width="680.4" Height="94.5" CanGrow="true"/>
+      <TextObject Name="Text7" Left="28.35" Top="207.9" Width="255.15" Height="18.9" Text="[CustomerReceiptDonations.Telephone]" Font="Times New Roman, 12pt, style=Bold"/>
+      <TextObject Name="Text6" Left="28.35" Top="189" Width="255.15" Height="18.9" Text="[CustomerReceiptDonations.CSZ]" Font="Times New Roman, 12pt, style=Bold"/>
+      <TextObject Name="Text5" Left="28.35" Top="170.1" Width="255.15" Height="18.9" Text="[CustomerReceiptDonations.Address]" Font="Times New Roman, 12pt, style=Bold"/>
+      <TextObject Name="Text10" Left="510.3" Top="170.1" Width="94.5" Height="18.9" Text="[CustomerReceiptDonations.Route]" Font="Times New Roman, 12pt, style=Bold"/>
+      <TextObject Name="Text11" Left="387.45" Top="170.1" Width="113.4" Height="18.9" Text="Route:" HorzAlign="Right" Font="Times New Roman, 12pt, style=Bold"/>
+      <TextObject Name="Text4" Left="28.35" Top="151.2" Width="255.15" Height="18.9" Text="[CustomerReceiptDonations.Name]" Font="Times New Roman, 12pt, style=Bold"/>
+      <TextObject Name="Text8" Left="387.45" Top="151.2" Width="113.4" Height="18.9" Text="Pick-up Date:" HorzAlign="Right" Font="Times New Roman, 12pt, style=Bold"/>
+      <TextObject Name="Text9" Left="500.85" Top="151.2" Width="122.85" Height="18.9" Text="[CustomerReceiptDonations.Date_Scheduled]" Format="Date" Format.Format="d" Font="Times New Roman, 12pt, style=Bold"/>
+      <TextObject Name="Text3" Left="214.35" Top="113.4" Width="292.95" Height="18.9" Text="Thank You for Your Donation!" HorzAlign="Center" Font="Times New Roman, 14pt, style=Bold"/>
+      <TextObject Name="Text2" Left="181" Top="70.15" Width="425.25" Height="18.9" Text="214 Lake Avenue, Rochester, New York 14608   (585) 647-1150" Font="Times New Roman, 10pt"/>
+      <TextObject Name="Text1" Left="172.1" Top="41.25" Width="425.25" Height="28.35" Text="Western New York" Font="Times New Roman, 20pt, style=Bold" TextFill.Color="1, 35, 124"/>
+      <PictureObject Name="Picture1" Left="18.9" Top="18.9" Width="141.75" Height="113.4" Image="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"/>
+      <TextObject Name="Text12" Left="172.1" Top="12.9" Width="425.25" Height="28.35" Text="Volunteers of America" Font="Times New Roman, 20pt, style=Bold" TextFill.Color="1, 35, 124"/>
+      <TextObject Name="Text15" Left="28.35" Top="245.7" Width="94.5" Height="18.9" Text="Item" Font="Times New Roman, 10pt, style=Bold"/>
+      <TextObject Name="Text16" Left="595.35" Top="245.7" Width="75.6" Height="18.9" Text="Quantity" Font="Times New Roman, 10pt, style=Bold"/>
+      <DataBand Name="Data2" Top="278.05" Width="718.2" Height="18.9" DataSource="Table1">
+        <TextObject Name="Text13" Left="28.35" Width="548.1" Height="18.9" Text="[CustomerReceiptDonationsDetails.ItemName]" Font="Times New Roman, 10pt"/>
+        <TextObject Name="Text14" Left="595.35" Width="75.6" Height="18.9" Text="[CustomerReceiptDonationsDetails.Qty]" Font="Times New Roman, 10pt"/>
+      </DataBand>
+      <DataBand Name="Data3" Top="300.95" Width="718.2" Height="56.7" DataSource="Table2">
+        <TextObject Name="Text23" Left="18.9" Top="18.9" Width="652.05" Height="18.9" Text="Other merchandise or notes:" Font="Times New Roman, 10pt, style=Bold"/>
+        <TextObject Name="Text24" Left="18.9" Top="37.8" Width="652.05" Height="18.9" CanGrow="true" Text="[CustomerReceiptMerchandiseNotes.MerchandiseNotes]" Font="Times New Roman, 10pt"/>
+      </DataBand>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="361.65" Width="718.2" Height="198.45" Guides="198.45">
+      <ShapeObject Name="Shape3" Left="28.35" Top="66.15" Width="661.5" Height="103.95"/>
+      <TextObject Name="Text18" Left="94.5" Width="151.2" Height="18.9" Text="Driver's Signature:" Font="Times New Roman, 12pt, style=Bold"/>
+      <LineObject Name="Line2" Left="236.25" Top="14.9" Width="378"/>
+      <TextObject Name="Text19" Left="94.5" Top="28.35" Width="548.1" Height="28.35" Text="It is illegal for donor's to alter, replicate or duplicate this document.  If the receipt is not accurate, please call Volunteers of America at (585) 647-1150 and a revised receipt will be issued." Font="Times New Roman, 10pt"/>
+      <TextObject Name="Text20" Left="37.8" Top="75.6" Width="652.05" Height="18.9" Text="Volunteers of America of Western New York, Inc. confirms that no goods or services were provided in return for this donation." Font="Times New Roman, 9pt"/>
+      <TextObject Name="Text21" Left="37.8" Top="103.95" Width="652.05" Height="56.7" Text="*If you itemize on your personal income tax returns, the fair market value of your contributions may reduce your taxable income.  If the total fair market value of your gift(s) during a year exceeds $500, IRS Form 8283 must be filled out and accompany your income tax return.  If the value of your gift exceeds $5,000, an appraisal may be necessary.  Please refer to IRS Form 8283 instructions for more information." Font="Times New Roman, 9pt"/>
+      <TextObject Name="Text22" Left="217.35" Top="179.55" Width="292.95" Height="18.9" Text="Donor's Copy for Receipt / Tax Purposes" HorzAlign="Center" Font="Times New Roman, 11pt, style=Bold"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>

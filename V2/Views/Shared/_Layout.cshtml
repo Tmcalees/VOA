@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body class="metro">
+    <nav class="navigation-bar light fixed-top">
+        <nav class="navigation-bar-content">
+
+                <a href="~/Home">
+                    <img src="~/images/voa-logo.png" class="place-left" style="padding-left:15px;" />
+                </a>
+  
+                <div class="element">Donor Application</div>
+                <span class="element-divider"></span>
+
+                <div class="element place-right">
+                    <a class="dropdown-toggle" href="#">
+                        <span class="icon-cog"></span>
+                    </a>
+                    <ul class="dropdown-menu place-right" data-role="dropdown">
+                        <li>@Html.ActionLink("Config Settings", "Index", "ConfigData")</li>
+                        <li>@Html.ActionLink("Holidays", "Index", "Holiday")</li>
+                        <li>@Html.ActionLink("Merchandise", "Index", "Merchandise")</li>
+                        <li>@Html.ActionLink("Pickup Locations", "Index", "PickupLocation")</li>
+                        <li>@Html.ActionLink("Stores", "Index", "Store")</li>
+                        <li>@Html.ActionLink("Zip Codes", "Index", "ZipCode")</li>
+                        <li class="divider"></li>
+                        <li>@Html.ActionLink("Donors", "Index", "Donor")</li>
+                    </ul>
+                </div>
+
+                <div class="element place-right">
+                    <a class="dropdown-toggle" href="#">
+                        Analytics
+                    </a>
+                    <ul class="dropdown-menu place-right" data-role="dropdown">
+                        <li>@Html.ActionLink("Merchandise Trend", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Zip Summary", "Index", "Home")</li>
+                    </ul>
+                </div>
+
+                <div class="element place-right">
+                    <a class="dropdown-toggle" href="#">
+                        Reports
+                    </a>
+                    <ul class="dropdown-menu place-right" data-role="dropdown">
+                        <li>@Html.ActionLink("Pickups by Operator", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Pickups by Hour", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Pickups by Zip Code", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Drop Offs by Operator", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Drop Offs by Store", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Other Merchandise", "Index", "Home")</li>
+                    </ul>
+                </div>
+
+</nav>
+    </nav>
+
+    <div style="margin-top: 60px">
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()        
+    </div>    
+    <div class="fixed-bottom container body-content">
+        <hr />
+        <footer>
+            <p class="text-muted text" style="font-size:smaller;">&copy; @DateTime.Now.Year - Volunteers of America - Upstate New York</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/js/metro.js")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

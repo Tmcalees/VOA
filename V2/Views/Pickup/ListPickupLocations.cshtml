@@ -1,0 +1,31 @@
+﻿@model IEnumerable<VOA.Models.PickupLocation>
+
+@{
+    ViewBag.Title = "List Pickup Locations";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<legend>Schedule Donation Pickup</legend>
+<nav class="breadcrumbs" style="margin-bottom:25px">
+    <ul>
+        <li><a href="~/Home"><i class="icon-home"></i></a></li>
+        <li><a href="~/Pickup">Look Up Donor</a></li>
+        <li><a href="~/Pickup/SearchDonor">Select Donor</a></li>
+        <li><a href="~/Pickup/SelectDate">Select Date</a></li>
+        <li><a href="~/Pickup/SelectMerchandise">Select Merchandise</a></li>
+        <li class="active"><a href="">Select Pickup Location</a></li>
+    </ul>
+</nav>
+
+@foreach (var item in Model)
+{
+    <a href="~/Pickup/Review">
+        <div class="tile double" style="display:inline-block;">
+            @Html.DisplayFor(modelItem => item.Description)
+        </div>
+    </a>
+}
+
+
+

@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/27/2009 10:46:38" ReportInfo.Modified="10/02/2012 10:06:53" ReportInfo.CreatorVersion="1.6.42.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="VOA" ConnectionString="rijcmlq5dPJehO5x/2E8sacvvLXnir20a59wSa+vyYSi3eYTnrKrTttk3oyLyi4N8PEzoLK0aOnpRnyXhjKF8DjulcKPWAqq8tngCzx/Z0C/n+OCQx1lOsuKzPNigjRsP6XQyoaTZrlejAmt6Zdi+5ViSR4JvxFh1q5aakS/YtpxG/uMCeQj5/My2V/pajTZxU1FWEg1puKgq2wTRcfckmj6ATsCQ==">
+      <TableDataSource Name="Table" Alias="TruckSlipRoutes" DataType="System.Int32" Enabled="true" SelectCommand="IF @route&lt;1&#13;&#10;  BEGIN&#13;&#10;    SELECT DISTINCT Route&#13;&#10;    FROM VOA_Donations&#13;&#10;    WHERE Date_Scheduled=@pickup_date AND Confirmed=1&#13;&#10;  END&#13;&#10;ELSE&#13;&#10;  BEGIN&#13;&#10;    SELECT DISTINCT Route&#13;&#10;    FROM VOA_Donations&#13;&#10;    WHERE Date_Scheduled=@pickup_date AND Confirmed=1&#13;&#10;      AND Route=@route&#13;&#10;  END">
+        <Column Name="Route" DataType="System.Int32"/>
+        <CommandParameter Name="@pickup_date" DataType="15" Expression="[PickupDate]" DefaultValue="02-17-2009"/>
+        <CommandParameter Name="@route" DataType="22" Expression="[Route]" DefaultValue="0"/>
+      </TableDataSource>
+      <TableDataSource Name="Table1" Alias="TruckSlipDonations" DataType="System.Int32" Enabled="true" SelectCommand="SELECT V1.Route,Name=CASE V.Merchandise_Id&#13;&#10;      WHEN 0 THEN V.OtherMerch&#13;&#10;      ELSE V2.Name&#13;&#10;   END, Sum(V.Qty) as Qty&#13;&#10;FROM VOA_Donation_Details V, VOA_Donations V1, VOA_Merchandise V2&#13;&#10;WHERE V1.Date_Scheduled=@pickup_date &#13;&#10;   AND V1.Route=@route &#13;&#10;   AND V.Merchandise_Id = V2.Id &#13;&#10;   AND V.Donation_Id = V1.Id&#13;&#10;   AND V1.Confirmed=1&#13;&#10;GROUP BY V1.Route, CASE V.Merchandise_Id&#13;&#10;      WHEN 0 THEN V.OtherMerch&#13;&#10;      ELSE V2.Name&#13;&#10;   END&#13;&#10;ORDER BY V1.Route Asc">
+        <Column Name="Route" DataType="System.Int32"/>
+        <Column Name="Qty" DataType="System.Int32"/>
+        <Column Name="Name" DataType="System.String"/>
+        <CommandParameter Name="@pickup_date" DataType="15" Expression="[PickupDate]" DefaultValue="10-20-2012"/>
+        <CommandParameter Name="@route" DataType="22" Expression="[TruckSlipRoutes.Route]" DefaultValue="0"/>
+      </TableDataSource>
+      <TableDataSource Name="Table2" Alias="TruckSlipAreaCodes" DataType="System.Int32" Enabled="true" SelectCommand="SELECT DISTINCT ZipCode&#13;&#10;FROM VOA_Donations &#13;&#10;WHERE Date_Scheduled=@pickup_date&#13;&#10;   AND Route=@route">
+        <Column Name="ZipCode" DataType="System.String"/>
+        <CommandParameter Name="@pickup_date" DataType="15" Expression="[PickupDate]" DefaultValue="02-17-2009"/>
+        <CommandParameter Name="@route" DataType="22" Expression="[TruckSlipRoutes.Route]" DefaultValue="0"/>
+      </TableDataSource>
+      <TableDataSource Name="Table3" Alias="TruckSlipPickupCount" DataType="System.Int32" Enabled="true" SelectCommand="SELECT COUNT(Id)as QTY&#13;&#10;FROM VOA_Donations&#13;&#10;WHERE Date_Scheduled=@pickup_date&#13;&#10;   AND Route=@route">
+        <Column Name="QTY" DataType="System.Int32"/>
+        <CommandParameter Name="@pickup_date" DataType="15" Expression="[PickupDate]" DefaultValue="02-17-2009"/>
+        <CommandParameter Name="@route" DataType="22" Expression="[TruckSlipRoutes.Route]" DefaultValue="0"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="PickupDate" DataType="System.DateTime"/>
+    <Parameter Name="Route" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1">
+    <PageHeaderBand Name="PageHeader1" Width="718.2" Height="56.7">
+      <TextObject Name="txtReportTitle" Left="292.95" Width="132.3" Height="28.35" Text="Truck Slip" Font="Arial, 18pt, style=Bold"/>
+      <TextObject Name="Text1" Left="292.95" Top="28.35" Width="132.3" Height="18.9" Text="[PickupDate]" Format="Date" Format.Format="d" HorzAlign="Center"/>
+      <TextObject Name="Text7" Left="614.25" Top="28.35" Width="66.15" Height="18.9" Text="Route #" HorzAlign="Right" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text2" Left="680.4" Top="28.35" Width="47.25" Height="18.9" Text="[TruckSlipRoutes.Route]"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="60.7" Width="718.2" Height="264.6" StartNewPage="true" DataSource="Table">
+      <TextObject Name="Text9" Left="18.9" Top="47.25" Width="47.25" Height="18.9" Text="Area" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text10" Left="18.9" Top="75.6" Width="85.05" Height="18.9" Text="# Pickups" Font="Arial, 10pt, style=Bold"/>
+      <LineObject Name="Line2" Left="85.05" Top="89.05" Width="151.2" Diagonal="true"/>
+      <LineObject Name="Line4" Left="56.7" Top="60.7" Width="652.05" Diagonal="true"/>
+      <TextObject Name="Text14" Left="283.5" Top="75.6" Width="75.6" Height="18.9" Text="Not Home" HorzAlign="Right" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text15" Left="519.75" Top="75.6" Width="66.15" Height="18.9" Text="Refused" HorzAlign="Right" Font="Arial, 10pt, style=Bold"/>
+      <LineObject Name="Line5" Left="368.55" Top="89.05" Width="113.4" Diagonal="true"/>
+      <LineObject Name="Line6" Left="595.35" Top="89.05" Width="113.4" Diagonal="true"/>
+      <TextObject Name="Text16" Left="18.9" Top="103.95" Width="85.05" Height="18.9" Text="Start Miles" Font="Arial, 10pt, style=Bold"/>
+      <LineObject Name="Line7" Left="94.5" Top="117.4" Width="141.75" Diagonal="true"/>
+      <TextObject Name="Text17" Left="283.5" Top="103.95" Width="75.6" Height="18.9" Text="End Miles" HorzAlign="Right" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text18" Left="519.75" Top="103.95" Width="66.15" Height="18.9" Text="Total" HorzAlign="Right" Font="Arial, 10pt, style=Bold"/>
+      <LineObject Name="Line8" Left="368.55" Top="117.4" Width="113.4" Diagonal="true"/>
+      <LineObject Name="Line9" Left="595.35" Top="117.4" Width="113.4" Diagonal="true"/>
+      <TextObject Name="Text19" Left="18.9" Top="132.3" Width="132.3" Height="18.9" Text="Driver's Signature" Font="Arial, 10pt, style=Bold"/>
+      <LineObject Name="Line10" Left="141.75" Top="145.75" Width="340.2" Diagonal="true"/>
+      <TextObject Name="Text20" Left="18.9" Top="160.65" Width="132.3" Height="18.9" Text="Helper's Signature" Font="Arial, 10pt, style=Bold"/>
+      <LineObject Name="Line11" Left="141.75" Top="174.1" Width="340.2" Diagonal="true"/>
+      <TextObject Name="Text21" Left="510.3" Top="132.3" Width="75.6" Height="18.9" Text="Start Time" HorzAlign="Right" Font="Arial, 10pt, style=Bold"/>
+      <LineObject Name="Line12" Left="595.35" Top="145.75" Width="113.4" Diagonal="true"/>
+      <TextObject Name="Text22" Left="500.85" Top="160.65" Width="85.05" Height="18.9" Text="Finish Time" HorzAlign="Right" Font="Arial, 10pt, style=Bold"/>
+      <LineObject Name="Line13" Left="595.35" Top="174.1" Width="113.4" Diagonal="true"/>
+      <TextObject Name="Text8" Left="18.9" Top="18.9" Width="66.15" Height="18.9" Text="Truck #" Font="Arial, 10pt, style=Bold"/>
+      <LineObject Name="Line1" Left="75.6" Top="32.35" Width="226.8" Diagonal="true"/>
+      <TextObject Name="Text13" Left="340.2" Top="18.9" Width="47.25" Height="18.9" Text="Driver" Font="Arial, 10pt, style=Bold"/>
+      <LineObject Name="Line3" Left="396.9" Top="32.35" Width="311.85" Diagonal="true"/>
+      <TextObject Name="Text23" Left="245.7" Top="198.45" Width="245.7" Height="28.35" Text="ITEMS TO PICKUP:" HorzAlign="Center" Font="Arial, 18pt, style=Bold"/>
+      <TextObject Name="Text4" Left="18.9" Top="236.25" Width="94.5" Height="18.9" Text="Item" Font="Arial, 12pt, style=Bold"/>
+      <TextObject Name="Text24" Left="264.6" Top="236.25" Width="94.5" Height="18.9" Text="Quantity" Font="Arial, 12pt, style=Bold"/>
+      <TextObject Name="Text25" Left="378" Top="236.25" Width="94.5" Height="18.9" Text="Item" Font="Arial, 12pt, style=Bold"/>
+      <TextObject Name="Text26" Left="623.7" Top="236.25" Width="94.5" Height="18.9" Text="Quantity" Font="Arial, 12pt, style=Bold"/>
+      <LineObject Name="Line14" Left="18.9" Top="255.15" Width="689.85"/>
+      <SubreportObject Name="Subreport1" Left="84.95" Top="45.8" Width="94.5" Height="18.9" ReportPage="Page2" PrintOnParent="true"/>
+      <SubreportObject Name="Subreport2" Left="94.5" Top="74.6" Width="94.5" Height="18.9" ReportPage="Page3" PrintOnParent="true"/>
+      <DataBand Name="Data2" Top="329.3" Width="359.1" Height="18.9" DataSource="Table1" Columns.Count="2" Columns.Layout="DownThenAcross" Columns.MinRowCount="30">
+        <TextObject Name="Text3" Left="18.9" Width="198.45" Height="18.9" Text="[TruckSlipDonations.Name]"/>
+        <TextObject Name="Text5" Left="283.5" Width="75.6" Height="18.9" Text="[TruckSlipDonations.Qty]"/>
+      </DataBand>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="352.2" Width="718.2" Height="18.9"/>
+  </ReportPage>
+  <ReportPage Name="Page2">
+    <DataBand Name="Data3" Width="47.88" Height="18.9" DataSource="Table2" Columns.Count="15">
+      <TextObject Name="Text6" Left="-28.35" Width="75.6" Height="18.9" Text="[TruckSlipAreaCodes.ZipCode]"/>
+    </DataBand>
+  </ReportPage>
+  <ReportPage Name="Page3">
+    <DataBand Name="Data4" Width="718.2" Height="18.9" DataSource="Table3">
+      <TextObject Name="Text11" Width="94.5" Height="18.9" Text="[TruckSlipPickupCount.QTY]"/>
+    </DataBand>
+  </ReportPage>
+</Report>
