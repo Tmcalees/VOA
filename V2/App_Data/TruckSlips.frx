@@ -1,25 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="11/27/2009 10:46:38" ReportInfo.Modified="10/02/2012 10:06:53" ReportInfo.CreatorVersion="1.6.42.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/27/2009 10:46:38" ReportInfo.Modified="08/13/2014 09:05:48" ReportInfo.CreatorVersion="2014.2.3.0">
   <Dictionary>
-    <MsSqlDataConnection Name="VOA" ConnectionString="rijcmlq5dPJehO5x/2E8sacvvLXnir20a59wSa+vyYSi3eYTnrKrTttk3oyLyi4N8PEzoLK0aOnpRnyXhjKF8DjulcKPWAqq8tngCzx/Z0C/n+OCQx1lOsuKzPNigjRsP6XQyoaTZrlejAmt6Zdi+5ViSR4JvxFh1q5aakS/YtpxG/uMCeQj5/My2V/pajTZxU1FWEg1puKgq2wTRcfckmj6ATsCQ==">
-      <TableDataSource Name="Table" Alias="TruckSlipRoutes" DataType="System.Int32" Enabled="true" SelectCommand="IF @route&lt;1&#13;&#10;  BEGIN&#13;&#10;    SELECT DISTINCT Route&#13;&#10;    FROM VOA_Donations&#13;&#10;    WHERE Date_Scheduled=@pickup_date AND Confirmed=1&#13;&#10;  END&#13;&#10;ELSE&#13;&#10;  BEGIN&#13;&#10;    SELECT DISTINCT Route&#13;&#10;    FROM VOA_Donations&#13;&#10;    WHERE Date_Scheduled=@pickup_date AND Confirmed=1&#13;&#10;      AND Route=@route&#13;&#10;  END">
+    <MsSqlDataConnection Name="VOA" ConnectionString="rijcmlqM3/HbiZANEYP3Y6oNtE7mrUmT0ytl94C6DYS4DXvgc8JqhVjVQGe7Sc2pOMNI3eDJddGdGlvervMIvA32GVSDtUCH1V7K0CZTSeZUTttec1Dgewiw9g5Y7Ny6/8gGFFvuMrXGqTeDIn5jIcT1ZNtYhlic/Ez8e+ib3phTY2jAcKpzlJmN/J3+42x9skOXdhY">
+      <TableDataSource Name="Table" Alias="TruckSlipRoutes" DataType="System.Int32" Enabled="true" SelectCommand="IF @route&lt;1&#13;&#10;  BEGIN&#13;&#10;    SELECT DISTINCT Route&#13;&#10;    FROM VOA_Donations&#13;&#10;    WHERE Date_Scheduled=@pickup_date AND Confirmed=1 AND Pickup = 1&#13;&#10;  END&#13;&#10;ELSE&#13;&#10;  BEGIN&#13;&#10;    SELECT DISTINCT Route&#13;&#10;    FROM VOA_Donations&#13;&#10;    WHERE Date_Scheduled=@pickup_date AND Confirmed=1 AND Pickup = 1&#13;&#10;      AND Route=@route&#13;&#10;  END">
         <Column Name="Route" DataType="System.Int32"/>
         <CommandParameter Name="@pickup_date" DataType="15" Expression="[PickupDate]" DefaultValue="02-17-2009"/>
         <CommandParameter Name="@route" DataType="22" Expression="[Route]" DefaultValue="0"/>
       </TableDataSource>
-      <TableDataSource Name="Table1" Alias="TruckSlipDonations" DataType="System.Int32" Enabled="true" SelectCommand="SELECT V1.Route,Name=CASE V.Merchandise_Id&#13;&#10;      WHEN 0 THEN V.OtherMerch&#13;&#10;      ELSE V2.Name&#13;&#10;   END, Sum(V.Qty) as Qty&#13;&#10;FROM VOA_Donation_Details V, VOA_Donations V1, VOA_Merchandise V2&#13;&#10;WHERE V1.Date_Scheduled=@pickup_date &#13;&#10;   AND V1.Route=@route &#13;&#10;   AND V.Merchandise_Id = V2.Id &#13;&#10;   AND V.Donation_Id = V1.Id&#13;&#10;   AND V1.Confirmed=1&#13;&#10;GROUP BY V1.Route, CASE V.Merchandise_Id&#13;&#10;      WHEN 0 THEN V.OtherMerch&#13;&#10;      ELSE V2.Name&#13;&#10;   END&#13;&#10;ORDER BY V1.Route Asc">
+      <TableDataSource Name="Table1" Alias="TruckSlipDonations" DataType="System.Int32" Enabled="true" SelectCommand="SELECT V1.Route,Name=CASE V.Merchandise_Id&#13;&#10;      WHEN 0 THEN V.OtherMerch&#13;&#10;      ELSE V2.Name&#13;&#10;   END, Sum(V.Qty) as Qty&#13;&#10;FROM VOA_Donation_Details V, VOA_Donations V1, VOA_Merchandise V2&#13;&#10;WHERE V1.Date_Scheduled=@pickup_date &#13;&#10;   AND V1.Route=@route &#13;&#10;   AND V.Merchandise_Id = V2.Id &#13;&#10;   AND V.Donation_Id = V1.Id&#13;&#10;   AND V1.Confirmed=1&#13;&#10;   AND V1.Pickup=1&#13;&#10;GROUP BY V1.Route, CASE V.Merchandise_Id&#13;&#10;      WHEN 0 THEN V.OtherMerch&#13;&#10;      ELSE V2.Name&#13;&#10;   END&#13;&#10;ORDER BY V1.Route Asc">
         <Column Name="Route" DataType="System.Int32"/>
         <Column Name="Qty" DataType="System.Int32"/>
         <Column Name="Name" DataType="System.String"/>
         <CommandParameter Name="@pickup_date" DataType="15" Expression="[PickupDate]" DefaultValue="10-20-2012"/>
         <CommandParameter Name="@route" DataType="22" Expression="[TruckSlipRoutes.Route]" DefaultValue="0"/>
       </TableDataSource>
-      <TableDataSource Name="Table2" Alias="TruckSlipAreaCodes" DataType="System.Int32" Enabled="true" SelectCommand="SELECT DISTINCT ZipCode&#13;&#10;FROM VOA_Donations &#13;&#10;WHERE Date_Scheduled=@pickup_date&#13;&#10;   AND Route=@route">
+      <TableDataSource Name="Table2" Alias="TruckSlipAreaCodes" DataType="System.Int32" Enabled="true" SelectCommand="SELECT DISTINCT ZipCode&#13;&#10;FROM VOA_Donations &#13;&#10;WHERE Date_Scheduled=@pickup_date&#13;&#10;   AND Route=@route&#13;&#10;   AND Pickup=1&#13;&#10;   AND Confirmed=1">
         <Column Name="ZipCode" DataType="System.String"/>
         <CommandParameter Name="@pickup_date" DataType="15" Expression="[PickupDate]" DefaultValue="02-17-2009"/>
         <CommandParameter Name="@route" DataType="22" Expression="[TruckSlipRoutes.Route]" DefaultValue="0"/>
       </TableDataSource>
-      <TableDataSource Name="Table3" Alias="TruckSlipPickupCount" DataType="System.Int32" Enabled="true" SelectCommand="SELECT COUNT(Id)as QTY&#13;&#10;FROM VOA_Donations&#13;&#10;WHERE Date_Scheduled=@pickup_date&#13;&#10;   AND Route=@route">
+      <TableDataSource Name="Table3" Alias="TruckSlipPickupCount" DataType="System.Int32" Enabled="true" SelectCommand="SELECT COUNT(Id)as QTY&#13;&#10;FROM VOA_Donations&#13;&#10;WHERE Date_Scheduled=@pickup_date&#13;&#10;   AND Route=@route&#13;&#10;   AND Pickup=1&#13;&#10;   AND Confirmed=1&#13;&#10;   AND AncillaryPickup=0">
         <Column Name="QTY" DataType="System.Int32"/>
         <CommandParameter Name="@pickup_date" DataType="15" Expression="[PickupDate]" DefaultValue="02-17-2009"/>
         <CommandParameter Name="@route" DataType="22" Expression="[TruckSlipRoutes.Route]" DefaultValue="0"/>

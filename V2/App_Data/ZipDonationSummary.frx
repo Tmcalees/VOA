@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="11/27/2009 14:16:24" ReportInfo.Modified="08/29/2011 11:21:22" ReportInfo.CreatorVersion="1.6.42.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/27/2009 14:16:24" ReportInfo.Modified="08/13/2014 09:06:10" ReportInfo.CreatorVersion="2014.2.3.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlq5dPJehO5x/2E8sacvvLXnir20a59wSa+vyYSi3eYTnrKrTttk3oyLyi4N8PEzoLK0aOnpRnyXhjKF8DjulcKPWAqq8tngCzx/Z0C/n+OCQx1lOsuKzPNigjRsP6XQyoaTZrlejAmt6Zdi+5ViSR4JvxFh1q5aakS/YtpxG/uMCeQj5/My2V/pajTZxU1FWEgRSDm9Qhx76xMvVrYYpqZSA==">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqM3/HbiZANEYP3Y6oNtE7mrUmT0ytl94C6DYS4DXvgc8JqhVjVQGe7Sc2pOMNI3eDJddGdGlvervMIvA32GVSDtUCH1V7K0CZTSeZUTttec1Dgewiw9g5Y7Ny6/8gGFFvuMrXGqTeDIn5jIcT1ZNtYhlic/Ez8e+ib3phTY2jAcK+CW5VShVPj0fgH8ajBW5X">
       <TableDataSource Name="Table" Alias="ZipDonationSummary" DataType="System.Int32" Enabled="true" SelectCommand="select M.Name, SUM(DD.Qty) as Qty&#13;&#10;from VOA_Donations D, VOA_Donation_Details DD, VOA_Merchandise M&#13;&#10;where D.Id = DD.Donation_Id&#13;&#10;  and DD.Merchandise_Id = M.Id&#13;&#10;  and D.ZipCode = @zipcode&#13;&#10;  and D.Date_Scheduled between @start_date and @end_date&#13;&#10;group by M.Name">
         <Column Name="Name" DataType="System.String"/>
         <Column Name="QTY" DataType="System.Int32"/>

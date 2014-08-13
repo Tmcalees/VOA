@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="11/28/2009 08:48:11" ReportInfo.Modified="05/03/2012 14:53:29" ReportInfo.CreatorVersion="1.6.42.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/28/2009 08:48:11" ReportInfo.Modified="08/12/2014 09:39:31" ReportInfo.CreatorVersion="2014.2.3.0">
   <Styles Name="Standard">
     <Style Name="Title" Font="Arial, 12pt, style=Bold"/>
     <Style Name="Header" Font="Arial, 10pt, style=Bold"/>
@@ -9,7 +9,7 @@
     <Style Name="EvenRows" Fill.Color="WhiteSmoke"/>
   </Styles>
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlq5dPJehO5x/2E8sacvvLXnir20a59wSa+vyYSi3eYTnrKrTttk3oyLyi4N8PEzoLK0aOnpRnyXhjKF8DjulcKPWAqq8tngCzx/Z0C/n+OCQx1lOsuKzPNigjRsP6XQyoaTZrlejAmt6Zdi+5ViSR4JvxFh1q5aakS/YtpxG/uMCeQj5/My2V/pajTZxU1FWEgztzDffltXLQqZsoSIv6RtA==">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqM3/HbiZANEYP3Y6oNtE7mrUmT0ytl94C6DYS4DXvgc8JqhVjVQGe7Sc2pOMNI3eDJddGdGlvervMIvA32GVSDtUCH1V7K0CZTSeZUTttec1Dgewiw9g5Y7Ny6/8gGFFvuMrXGqTeDIn5jIcT1ZNtYhlic/Ez8e+ib3phTY2jAcIglFZgbD0yRCWyo4v7jGRj">
       <TableDataSource Name="Table" Alias="PickupsByHour" DataType="System.Int32" Enabled="true" SelectCommand="SELECT CONVERT(CHAR(10),V.Date_Entered,101) AS Date, DATEPART(hh, V.Date_Entered) AS Hour, Count(*) AS PickupQty&#13;&#10;FROM &quot;VOA_Donations&quot; V&#13;&#10;WHERE V.Date_Entered  BETWEEN @start_date AND dateadd(d,1,@end_date)&#13;&#10;   AND V.PickUpLocation=8&#13;&#10;GROUP BY CONVERT(CHAR(10),V.Date_Entered,101), DATEPART(hh,V.Date_Entered)&#13;&#10;ORDER BY CONVERT(CHAR(10),V.Date_Entered,101), DATEPART(hh, V.Date_Entered)&#13;&#10;">
         <Column Name="Hour" DataType="System.Int32"/>
         <Column Name="PickupQty" DataType="System.Int32"/>

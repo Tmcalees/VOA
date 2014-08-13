@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="11/27/2009 14:16:24" ReportInfo.Modified="08/29/2011 11:21:41" ReportInfo.CreatorVersion="1.6.42.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/27/2009 14:16:24" ReportInfo.Modified="08/13/2014 09:02:54" ReportInfo.CreatorVersion="2014.2.3.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlq5dPJehO5x/2E8sacvvLXnir20a59wSa+vyYSi3eYTnrKrTttk3oyLyi4N8PEzoLK0aOnpRnyXhjKF8DjulcKPWAqq8tngCzx/Z0C/n+OCQx1lOsuKzPNigjRsP6XQyoaTZrlejAmt6Zdi+5ViSR4JvxFh1q5aakS/YtpxG/uMCeQj5/My2V/pajTZxU1FWEgZeJSKvMVrUNfdnJLy9SIOg==">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqM3/HbiZANEYP3Y6oNtE7mrUmT0ytl94C6DYS4DXvgc8JqhVjVQGe7Sc2pOMNI3eDJddGdGlvervMIvA32GVSDtUCH1V7K0CZTSeZUTttec1Dgewiw9g5Y7Ny6/8gGFFvuMrXGqTeDIn5jIcT1ZNtYhlic/Ez8e+ib3phTY2jAcLPJubp228cY13BescCGhSY">
       <TableDataSource Name="Table" Alias="MerchandiseTrend" DataType="System.Int32" Enabled="true" SelectCommand="select CONVERT(NCHAR(4), DATEPART(yyyy, D.Date_Scheduled))+'-'+Right('0' + Convert(VarChar(2), Month(D.Date_Scheduled)), 2) As YearMonth, M.Name, SUM(DD.Qty) as QTY&#13;&#10;from VOA_Merchandise M, VOA_Donation_Details DD, VOA_Donations D&#13;&#10;where D.Id = DD.Donation_Id and DD.Merchandise_Id = M.Id&#13;&#10;  and M.Id = @merchandise_id&#13;&#10;  and D.Date_Scheduled BETWEEN @start_date AND @end_date&#13;&#10;group by CONVERT(NCHAR(4), DATEPART(yyyy, D.Date_Scheduled))+'-'+Right('0' + Convert(VarChar(2), Month(D.Date_Scheduled)), 2),&#13;&#10;         M.Name&#13;&#10;order by YearMonth&#13;&#10;">
         <Column Name="Name" DataType="System.String"/>
         <Column Name="YearMonth" DataType="System.String"/>

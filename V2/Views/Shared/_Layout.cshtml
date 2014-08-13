@@ -6,6 +6,8 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @WebReportGlobals.Scripts()
+    @WebReportGlobals.Styles()
 
 </head>
 <body class="metro">
@@ -40,8 +42,8 @@
                         Analytics
                     </a>
                     <ul class="dropdown-menu place-right" data-role="dropdown">
-                        <li>@Html.ActionLink("Merchandise Trend", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Zip Summary", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Merchandise Donation Trend", "MerchandiseTrend", "Analytics")</li>
+                        <li>@Html.ActionLink("Zip Domation Summary", "ZipSummary", "Analytics")</li>
                     </ul>
                 </div>
 
@@ -50,12 +52,12 @@
                         Reports
                     </a>
                     <ul class="dropdown-menu place-right" data-role="dropdown">
-                        <li>@Html.ActionLink("Pickups by Operator", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Pickups by Hour", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Pickups by Zip Code", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Drop Offs by Operator", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Drop Offs by Store", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Other Merchandise", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Pickups by Operator", "PickupsByOperator", "Report")</li>
+                        <li>@Html.ActionLink("Pickups by Hour", "PickupsByHour", "Report")</li>
+                        <li>@Html.ActionLink("Pickups by Zip Code", "PickupsByZip", "Report")</li>
+                        <li>@Html.ActionLink("Drop Offs by Operator", "DropOffsByOperator", "Report")</li>
+                        <li>@Html.ActionLink("Drop Offs by Store", "DropOffsByStore", "Report")</li>
+                        <li>@Html.ActionLink("Other Merchandise", "OtherMerchandise", "Report")</li>
                     </ul>
                 </div>
 

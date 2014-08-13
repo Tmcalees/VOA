@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="12/05/2009 08:38:27" ReportInfo.Modified="12/05/2011 11:39:23" ReportInfo.CreatorVersion="1.6.42.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/05/2009 08:38:27" ReportInfo.Modified="08/13/2014 09:04:52" ReportInfo.CreatorVersion="2014.2.3.0">
   <Dictionary>
-    <MsSqlDataConnection Name="VOA" ConnectionString="rijcmlq5dPJehO5x/2E8sacvvLXnir20a59wSa+vyYSi3eYTnrKrTttk3oyLyi4N8PEzoLK0aOnpRnyXhjKF8DjulcKPWAqq8tngCzx/Z0C/n+OCQx1lOsuKzPNigjRsP6XQyoaTZrlejAmt6Zdi+5ViSR4Jpt/cHqKdon9rxekQAj1ln1RfeZV0Hbl8a0zh1OPwm5QTdvhRwC/y3E5gx+Y6c/n7Q==">
+    <MsSqlDataConnection Name="VOA" ConnectionString="rijcmlqM3/HbiZANEYP3Y6oNtE7mrUmT0ytl94C6DYS4DXvgc8JqhVjVQGe7Sc2pOMNI3eDJddGdGlvervMIvA32GVSDtUCH1V7K0CZTSeZUTttec1Dgewiw9g5Y7Ny6/8gGFFvHHOTZmtC51kPu1BBRGzJsPCU0pBnRWG6uzqnJt/c8edTtyQbF1m9w+3p98aQxEPj">
       <TableDataSource Name="Table" Alias="OtherMerchandise" DataType="System.Int32" Enabled="true" SelectCommand="SELECT DD.OtherMerch, DD.Qty, O.First_Name, O.Last_Name, D.Date_Entered&#13;&#10;FROM VOA_Donation_Details as DD, VOA_Donations as D, VOA_Operators as O&#13;&#10;WHERE DD.Donation_Id = D.Id and D.Operator_Id = O.Id and DD.Merchandise_Id = 0&#13;&#10;  AND D.Date_Entered BETWEEN @start_date AND dateadd(d,1,@end_date)&#13;&#10;ORDER BY DD.OtherMerch">
         <Column Name="OtherMerch" Alias="Other Merchandise" DataType="System.String"/>
         <Column Name="Qty" Alias="Quantity" DataType="System.Int32"/>
