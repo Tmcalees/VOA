@@ -30,9 +30,7 @@ namespace VOA
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                      "~/Content/bootstrap-datetimepicker.min.css",
-                      "~/css/metro-bootstrap.css",
-                      "~/css/metro-bootstrap-responsive.css",
+                      "~/Content/bootstrap-datetimepicker.min.css",                      
                       "~/css/iconFont.min.css"));
         }
     }

@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @WebReportGlobals.Scripts()
+    @WebReportGlobals.Styles()
+    <link href="./css/style.css" rel="stylesheet" type="text/css" />
+    <link href="./css/layout.css" rel="stylesheet" type="text/css" />
+</head>
+<body id="page1">    
+    <div class="tail-top-form">
+        <div class="tail-bottom">
+            <div id="main">
+                <!-- header -->
+                <div id="header">
+                    <a href="home.html"><img src="images/voa-logo.png" alt="" /></a><span class="apptitle">Donor Application</span>
+                    <ul class="list">
+                        <li><a href="">Home</a></li>
+                        <li><a href="">Administration</a></li>
+                    </ul>
+                    <ul class="site-nav">
+                        <li><a href="/Pickup">New Donation</a></li>
+                        <li><a href="/Lookup">Search Donations</a></li>
+                        <li><a href="">Schedule Routes</a></li>
+                        <li><a href="">Truck Slips</a></li>
+                        <li><a href="">Address List</a></li>
+                        <li class="last"><a href="">Customer Receipt</a></li>
+                    </ul>                    
+                </div>
+
+                <div class="content">
+                    @RenderBody()
+                </div>
+
+                <!-- footer -->
+                <div id="footer">
+                    <div class="indent">
+                        <div class="fleft">Copyright - Voluteers of America Upstate New York</div>
+                        <div class="fright">Thomas McAlees (Tom@McAlees.Net)</div>
+                    </div>
+                </div>          
+
+                @Scripts.Render("~/bundles/jquery")
+                @Scripts.Render("~/bundles/bootstrap")
+                @Scripts.Render("~/js/metro.js")
+                @RenderSection("scripts", required: false)
+            </div>
+        </div>
+    </div>
+</body>
+</html>
